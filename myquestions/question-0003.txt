@@ -1,0 +1,15 @@
+El Problema: En lugar de confiar en un solo algoritmo de clasificación, quieres combinar la "sabiduría" de dos modelos distintos: un Bosque Aleatorio (Random Forest) y una Máquina de Vectores de Soporte (SVC). Quieres que voten basados en la probabilidad que calculan para cada clase (votación suave o soft voting). 
+
+Tu Misión: Escribe una función llamada ensamble_votacion_suave(df, feature_cols, target_col) que realice lo siguiente:
+
+1. Separe las características (X) y el objetivo (y).
+
+2. Cree una instancia de RandomForestClassifier (con random_state=42).
+
+3. Cree una instancia de SVC (con probability=True y random_state=42).
+
+4. Combine ambos en un VotingClassifier especificando el parámetro voting='soft'.
+
+5. Entrene el ensamble con los datos y calcule la precisión (accuracy) sobre el mismo conjunto de datos de entrenamiento.
+
+6. Devuelva una tupla con dos elementos: el modelo VotingClassifier entrenado y el valor numérico de la precisión (float).
