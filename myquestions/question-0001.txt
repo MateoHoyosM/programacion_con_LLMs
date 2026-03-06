@@ -1,0 +1,13 @@
+El Problema: Has recibido un dataset limpio y deseas establecer un modelo base (baseline) rápido para un problema de regresión utilizando un Árbol de Decisión. Quieres automatizar el proceso de entrenar el modelo y obtener sus métricas de error.
+
+Tu Misión: Escribe una función llamada entrenar_evaluar_arbol(df, feature_cols, target_col, max_depth) que realice lo siguiente:
+
+1. Extraiga la matriz de características X (usando las columnas en feature_cols) y el vector objetivo y (usando target_col).
+
+2. Entrene un DecisionTreeRegressor de sklearn con la profundidad máxima especificada por max_depth y random_state=42.
+
+3. Genere predicciones sobre los mismos datos X.
+
+4. Calcule el Error Cuadrático Medio (MSE) y el coeficiente de determinación ($R^2$) usando sklearn.metrics.
+
+5. Devuelva una tupla con las dos métricas: (mse, r2).
