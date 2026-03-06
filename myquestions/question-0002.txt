@@ -1,0 +1,11 @@
+El Problema: Tienes variables que podrían tener relaciones no lineales (cuadráticas, interacciones) con tu variable objetivo. Quieres generar características polinómicas, pero sabes que esto crea muchísimas variables y puede causar sobreajuste. Para solucionarlo, usarás regresión Lasso para que su penalización "apague" (vuelva cero) los coeficientes de las variables menos importantes.
+
+Tu Misión: Escribe una función llamada seleccionar_features_polinomiales(df, feature_cols, target_col, degree, alpha) que realice lo siguiente:
+
+1. Extraiga la matriz X (feature_cols) y el vector y (target_col).
+
+2. Aplique PolynomialFeatures de sklearn con el grado especificado en degree (sin incluir el sesgo, include_bias=False).
+
+3. Entrene un modelo Lasso con el parámetro de penalización alpha y random_state=42.
+
+4. Devuelva un array de numpy unidimensional que contenga únicamente los índices (posiciones) de los coeficientes del modelo Lasso que sean diferentes de cero (es decir, las características que el modelo seleccionó como importantes).
