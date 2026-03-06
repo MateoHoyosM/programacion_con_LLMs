@@ -1,4 +1,4 @@
-# programacion_con_LLMs
+# programación_con_LLMs
 Fase I de programación con LLMs
 
 Nombre: Mateo Hoyos Montoya
