@@ -1,0 +1,13 @@
+El Problema: Estás construyendo un modelo para predecir si un paciente desarrollará una complicación médica. En estos casos, el umbral por defecto del 50% (0.5) que usan los clasificadores puede ser peligroso porque omite pacientes en riesgo. Necesitas extraer la probabilidad directa y aplicar un umbral personalizado más bajo para ser más precavido (aumentar el recall).
+
+Tu Misión: Escribe una función llamada clasificacion_umbral_personalizado(df, target_col, umbral) que realice lo siguiente:
+
+1. Separe las características (X) y el objetivo (y, definido en target_col).
+
+2. Entrene un modelo GaussianNB (Naive Bayes Gaussiano) de sklearn con los datos.
+
+3. Utilice el método predict_proba del modelo para obtener las probabilidades de la clase positiva (clase 1, asumiendo clasificación binaria 0 y 1). 
+
+4. Utilice numpy.where para generar un array de nuevas predicciones, asignando la clase 1 si la probabilidad de la clase positiva es mayor o igual al umbral proporcionado, y 0 en caso contrario.
+
+5. Devuelva una tupla con dos arrays de numpy unidimensionales: el array de probabilidades de la clase positiva y el array de las nuevas predicciones calculadas con el umbral.
