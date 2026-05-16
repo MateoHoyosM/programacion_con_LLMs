@@ -12,26 +12,31 @@ def generar_segmentos(df, test_size, n_clusters):
     df_clean["age_group"] = (df_clean["age"] // 10) * 10
     df_clean["income"] = df_clean.groupby("age_group")["income"].transform(lambda x: x.fillna(x.mean()))
     
-    # Prevenir errores si un grupo de edad entero fuera nulo
     if df_clean["income"].isnull().any():
         df_clean["income"] = df_clean["income"].fillna(df_clean["income"].mean())
         
-    # 3. Escalar todas las características (Coincidiendo con el orden del test)
+    # 3. Extraer estrictamente como NumPy arrays para evitar que Scikit-Learn devuelva DataFrames
     features = ["age", "income", "purchase_frequency", "cltv"]
+    X_raw = df_clean[features].to_numpy() 
+    y = df_clean["cluster"].to_numpy()
+    
+    # 4. Escalar todas las características
     scaler = RobustScaler()
+    X_scaled = scaler.fit_transform(X_raw)
     
-    # scaler.fit_transform devuelve un array de NumPy directamente
-    X = scaler.fit_transform(df_clean[features]) 
-    y = df_clean["cluster"].to_numpy() # Convertimos la etiqueta a array también
+    # Redundancia de seguridad: asegurar que el tipo sea ndarray
+    X_scaled = np.asarray(X_scaled)
     
-    # 4. Dividir datos usando StratifiedShuffleSplit
+    # 5. Dividir datos usando StratifiedShuffleSplit
     sss = StratifiedShuffleSplit(n_splits=1, test_size=test_size, random_state=42)
-    train_idx, test_idx = next(sss.split(X, y))
+    train_idx, test_idx = next(sss.split(X_scaled, y))
     
-    X_scaled_train, X_scaled_test = X[train_idx], X[test_idx]
-    y_train, y_test = y[train_idx], y[test_idx]
+    X_scaled_train = X_scaled[train_idx]
+    X_scaled_test = X_scaled[test_idx]
+    y_train = y[train_idx]
+    y_test = y[test_idx]
     
-    # 5. Entrenar el modelo KMeans usando solo el conjunto de entrenamiento
+    # 6. Entrenar el modelo KMeans
     kmeans_model = KMeans(n_clusters=n_clusters, random_state=42, n_init='auto')
     kmeans_model.fit(X_scaled_train)
     
